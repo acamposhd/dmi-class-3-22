@@ -1,20 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import StyledButton from "./components/Button";
+import Container from "./components/Container";
+import Title from "./components/Title";
 
 export default function App() {
+  const [isBold, setIsBold] = useState(false);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <Container>
+      <StyledButton onPress={() => setIsBold((prevValue) => !prevValue)}>
+        <Title color="white" bold={isBold}>
+          Bold
+        </Title>
+      </StyledButton>
+      <Title bold={isBold}>Open up App.js to start working on your!</Title>
       <StatusBar style="auto" />
-    </View>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
