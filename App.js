@@ -1,20 +1,61 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import StyledButton from "./components/Button";
-import Container from "./components/Container";
-import Title from "./components/Title";
+import React from "react";
+import Main from "./pages/Main";
+import Settings from "./pages/Settings";
+import About from "./pages/About";
 
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+const Tabs = [
+  {
+    name: "Home",
+    component: Main,
+    options: { headerShown: false },
+  },
+  {
+    name: "Settings",
+    component: Settings,
+    options: { headerShown: true },
+  },
+  {
+    name: "About",
+    component: About,
+    options: { headerShown: false },
+  },
+];
+
+const Tab = createBottomTabNavigator();
 export default function App() {
-  const [isBold, setIsBold] = useState(false);
   return (
-    <Container>
-      <StyledButton onPress={() => setIsBold((prevValue) => !prevValue)}>
-        <Title color="white" bold={isBold}>
-          Bold
-        </Title>
-      </StyledButton>
-      <Title bold={isBold}>Open up App.js to start working on your!</Title>
-      <StatusBar style="auto" />
-    </Container>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === "Home") {
+              iconName = focused ? "ios-home" : "ios-home-outline";
+            } else if (route.name === "Settings") {
+              iconName = focused ? "settings" : "settings-outline";
+            } else if (route.name === "About") {
+              iconName = focused
+                ? "information-circle"
+                : "information-circle-outline";
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+      >
+        {Tabs.map((tab, index) => (
+          <Tab.Screen
+            key={index}
+            name={tab.name}
+            component={tab.component}
+            options={tab.options}
+          />
+        ))}
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
