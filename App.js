@@ -3,14 +3,27 @@ import Login from "./pages/Login";
 import Main from "./pages/Main";
 import Settings from "./pages/Settings";
 import About from "./pages/About";
+import Info from "./pages/Info";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { DrawerComponent } from "./components/Navigators/Drawer";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Tabs = [
+const drawerComponents = [
+  {
+    name: "About",
+    component: About,
+  },
+  {
+    name: "Info",
+    component: Info,
+  },
+];
+
+const tabs = [
   {
     name: "Home",
     component: Main,
@@ -19,17 +32,23 @@ const Tabs = [
   {
     name: "Settings",
     component: Settings,
-    options: { headerShown: true },
+    options: { headerShown: false },
   },
   {
     name: "About",
-    component: About,
+    component: () => (
+      <DrawerComponent
+        drawerScreens={drawerComponents}
+        initialRoute={"About"}
+      />
+    ),
     options: { headerShown: false },
   },
 ];
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const login = () => {
@@ -63,7 +82,7 @@ export default function App() {
             },
           })}
         >
-          {Tabs.map((tab, index) => (
+          {tabs.map((tab, index) => (
             <Tab.Screen
               key={index}
               name={tab.name}
