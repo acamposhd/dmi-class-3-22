@@ -7,6 +7,7 @@ const StyledButton = styled.TouchableOpacity`
   border-radius: 5px;
   text-align: center;
   justify-content: center;
+  align-items: center;
   margin: 20px;
 `;
 
