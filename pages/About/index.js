@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import StyledButton from "../../components/Button";
 import Container from "../../components/Container";
+import ImagePickerExample from "../../components/ImagePicker";
 import Title from "../../components/Title";
 
 export default function About() {
@@ -14,6 +15,7 @@ export default function About() {
         </Title>
       </StyledButton>
       <Title bold={isBold}>About Screen</Title>
+      <ImagePickerExample />
       <StatusBar style="auto" />
     </Container>
   );
